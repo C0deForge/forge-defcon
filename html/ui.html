@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Language changed to English -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            z-index: 9999; /* Ensures the UI is on top */
+        }
+
+        #defconUI {
+            position: fixed;
+            bottom: 20px; /* Initial position adjustment */
+            left: -300px; /* Off-screen initially */
+            display: none; /* Hidden until activated */
+            align-items: center;
+            background-color: transparent;
+            border-radius: 5px;
+            padding: 10px;
+            color: white;
+            width: fit-content;
+            font-style: italic;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            transition: bottom 0.5s ease, left 0.5s ease, opacity 0.3s ease-in-out; /* Smooth animations */
+            opacity: 1; /* Controls opacity for transitions */
+        }
+
+        #defconNumber {
+            height: 35px; /* Height of the color rectangle */
+            padding: 0 15px; /* Spacing for the number */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5px;
+            color: white;
+            font-size: 16px; /* Font size */
+            font-weight: bold;
+            border-radius: 5px;
+            opacity: 0.8;
+        }
+
+        #defconLabel {
+            background-color: rgba(0, 0, 0, 0.7); /* Black background opacity */
+            padding: 0 10px; /* Internal spacing */
+            height: 35px; /* Same height as the color rectangle */
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #defconUI img {
+            width: 35px;
+            height: 35px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="defconUI">
+        <img id="defconLogo" src="logo_lspd.png" alt="LSPD Logo">
+        <div id="defconNumber"></div> <!-- Only the number is displayed here -->
+        <span id="defconLabel">DEFCON</span> <!-- Text that says "DEFCON" -->
+    </div>
+
+    <script src="defcon.js"></script>
+</body>
+</html>
