@@ -65,7 +65,7 @@ AddEventHandler('defcon:openMenu', function()
         {header = Config.MenuHeaders.DEFCON3, value = 3},
         {header = Config.MenuHeaders.DEFCON4, value = 4},
         {header = Config.MenuHeaders.DEFCON5, value = 5},
-        {header = Config.MenuHeaders.RemoveDEFCON, value = 'remove'}
+        {header = Config.MenuHeaders.RemoveDEFCON, value = 0}
     }
 
     if ESX then
@@ -105,7 +105,7 @@ end)
 -- Event to notify all players about the DEFCON level
 RegisterNetEvent('defcon:notifyAllPlayers')
 AddEventHandler('defcon:notifyAllPlayers', function(level)
-    local defconMsg = level == 'remove' and
+    local defconMsg = level == 0 and
         Config.Messages.DEFCONDeactivated or
         Config.Messages.DEFCONActivated .. level .. Config.Messages.BeCareful
 
@@ -121,16 +121,21 @@ end)
 -- Event to show the DEFCON UI
 RegisterNetEvent('defcon:showUI')
 AddEventHandler('defcon:showUI', function(level)
-    local color = Config.DefconColors[level]
-    SendNUIMessage({
-        action = 'showDefconUI',
-        defconLevel = level,
-        defconColor = color
-    })
+    if level > 0 then
+        local color = Config.DefconColors[level]
+        SendNUIMessage({
+            action = 'showDefconUI',
+            defconLevel = level,
+            defconColor = color
+        })
 
-    if not defconActive then
-        defconActive = true
-        monitorRadar()
+        if not defconActive then
+            defconActive = true
+            monitorRadar()
+        end
+    else
+        -- If the level is 0, clear the UI
+        TriggerEvent('defcon:clearUI')
     end
 end)
 
@@ -167,7 +172,7 @@ end)
 -- Handle server response for current DEFCON level
 RegisterNetEvent('defcon:currentLevel')
 AddEventHandler('defcon:currentLevel', function(level)
-    if level then
+    if level > 0 then
         TriggerEvent('defcon:showUI', level)
     else
         TriggerEvent('defcon:clearUI')
