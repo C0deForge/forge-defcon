@@ -1,21 +1,21 @@
 local ESX, QBCore = nil, nil
-local currentDefconLevel = 0 -- Variable para almacenar el nivel actual de DEFCON
+local currentDefconLevel = 0 -- Variable to store the current DEFCON level
 
--- Configurar el framework según la configuración
+-- Set up the framework based on the configuration
 if Config.Framework == "ESX" then
     ESX = exports['es_extended']:getSharedObject()
 elseif Config.Framework == "QB" then
     QBCore = exports['qb-core']:GetCoreObject()
 end
 
--- Función para imprimir mensajes de depuración
+-- Function to log debug messages
 local function debugPrint(message)
     if Config.Debug then
         print("[DEBUG] " .. message)
     end
 end
 
--- Evento para establecer el nivel de DEFCON
+-- Event to set the DEFCON level
 RegisterNetEvent('defcon:setLevel')
 AddEventHandler('defcon:setLevel', function(level)
     currentDefconLevel = level
@@ -23,7 +23,7 @@ AddEventHandler('defcon:setLevel', function(level)
     TriggerClientEvent('defcon:showUI', -1, level)
 end)
 
--- Evento para limpiar el nivel de DEFCON
+-- Event to clear the DEFCON level
 RegisterNetEvent('defcon:clearLevel')
 AddEventHandler('defcon:clearLevel', function()
     if currentDefconLevel == 0 then
@@ -36,12 +36,12 @@ AddEventHandler('defcon:clearLevel', function()
         end
     else
         currentDefconLevel = 0
-        TriggerClientEvent('defcon:notifyAllPlayers', -1, 'remove')
-        TriggerClientEvent('defcon:clearUI', -1)
+        TriggerClientEvent('defcon:notifyAllPlayers', -1, 0) -- Send 0 instead of 'remove'
+        TriggerClientEvent('defcon:clearUI', -1) -- Clear the UI for all players
     end
 end)
 
--- Evento para enviar el estado actual del DEFCON a un jugador que se conecta
+-- Event to send the current DEFCON status to a player who connects
 RegisterNetEvent('defcon:requestCurrentLevel')
 AddEventHandler('defcon:requestCurrentLevel', function()
     local src = source
@@ -52,7 +52,7 @@ AddEventHandler('defcon:requestCurrentLevel', function()
     end
 end)
 
--- Cuando un jugador se conecta, enviarle el estado actual del DEFCON
+-- When a player connects, send them the current DEFCON status
 AddEventHandler('playerConnecting', function()
     local src = source
     if currentDefconLevel > 0 then
