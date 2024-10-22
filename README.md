@@ -21,3 +21,7 @@ This script allows police officers to announce the DEFCON status to all citizens
 For technical support, please join the CodeForge Discord: [CodeForge Discord](https://discord.gg/UTVssdrXRV).
 
 For more scripts, visit our official website: [CodeForge Scripts](https://codeforge.tebex.io/).
+
+![image](https://github.com/user-attachments/assets/9290fc21-1479-471e-901b-d0e15cdba1a4)
+![image](https://github.com/user-attachments/assets/10580314-88c0-4b8a-aec0-a6ab73298cb0)
+![image](https://github.com/user-attachments/assets/e3cfafab-27d4-49d3-84fe-991b2497a68c)
