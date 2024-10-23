@@ -59,16 +59,17 @@ end, false)
 -- Event to open the DEFCON menu
 RegisterNetEvent('defcon:openMenu')
 AddEventHandler('defcon:openMenu', function()
-    local elements = {
-        {header = Config.MenuHeaders.DEFCON1, value = 1},
-        {header = Config.MenuHeaders.DEFCON2, value = 2},
-        {header = Config.MenuHeaders.DEFCON3, value = 3},
-        {header = Config.MenuHeaders.DEFCON4, value = 4},
-        {header = Config.MenuHeaders.DEFCON5, value = 5},
-        {header = Config.MenuHeaders.RemoveDEFCON, value = 0}
-    }
-
     if ESX then
+        -- For ESX use 'label' instead of 'header'
+        local elements = {
+            {label = Config.MenuHeaders.DEFCON1, value = 1}, -- Changed 'header' to 'label'
+            {label = Config.MenuHeaders.DEFCON2, value = 2},
+            {label = Config.MenuHeaders.DEFCON3, value = 3},
+            {label = Config.MenuHeaders.DEFCON4, value = 4},
+            {label = Config.MenuHeaders.DEFCON5, value = 5},
+            {label = Config.MenuHeaders.RemoveDEFCON, value = 0}
+        }
+
         ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'defcon_menu', {
             title = Config.MenuTitle,
             align = 'top-left',
@@ -80,9 +81,18 @@ AddEventHandler('defcon:openMenu', function()
         end, function(data, menu)
             menu.close()
         end)
+
     elseif QBCore then
+        -- For QBCore use 'header'
         local qbElements = {}
-        for _, element in ipairs(elements) do
+        for _, element in ipairs({
+            {header = Config.MenuHeaders.DEFCON1, value = 1},
+            {header = Config.MenuHeaders.DEFCON2, value = 2},
+            {header = Config.MenuHeaders.DEFCON3, value = 3},
+            {header = Config.MenuHeaders.DEFCON4, value = 4},
+            {header = Config.MenuHeaders.DEFCON5, value = 5},
+            {header = Config.MenuHeaders.RemoveDEFCON, value = 0}
+        }) do
             table.insert(qbElements, {
                 header = element.header,
                 params = {
